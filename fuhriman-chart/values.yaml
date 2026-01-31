@@ -1,0 +1,37 @@
+replicaCount: 2
+
+image:
+  repository: furryman/fuhriman-website
+  tag: latest
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  hosts:
+    - host: fuhriman.org
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: fuhriman-tls
+      hosts:
+        - fuhriman.org
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi
+
+nodeSelector: {}
+tolerations: []
+affinity: {}

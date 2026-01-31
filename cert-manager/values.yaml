@@ -1,0 +1,9 @@
+cert-manager:
+  installCRDs: true
+  prometheus:
+    enabled: false
+
+# Let's Encrypt configuration
+letsencrypt:
+  email: admin@fuhriman.org
+  server: https://acme-v02.api.letsencrypt.org/directory

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: fuhriman-chart
+description: Helm chart for fuhriman.org portfolio website
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
