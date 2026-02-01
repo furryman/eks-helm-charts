@@ -1,14 +1,11 @@
 replicaCount: 2
-
 image:
   repository: furryman/fuhriman-website
-  tag: latest
+  tag: ga-2026.02.01-0335
   pullPolicy: Always
-
 service:
   type: ClusterIP
   port: 80
-
 ingress:
   enabled: true
   className: nginx
@@ -23,7 +20,6 @@ ingress:
     - secretName: fuhriman-tls
       hosts:
         - fuhriman.org
-
 resources:
   limits:
     cpu: 100m
@@ -31,7 +27,6 @@ resources:
   requests:
     cpu: 50m
     memory: 64Mi
-
 nodeSelector: {}
 tolerations: []
 affinity: {}
