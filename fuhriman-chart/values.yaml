@@ -1,4 +1,4 @@
-replicaCount: 2
+replicaCount: 1
 image:
   repository: furryman/fuhriman-website
   tag: ga-2026.02.01-2252
@@ -16,10 +16,15 @@ ingress:
       paths:
         - path: /
           pathType: Prefix
+    - host: www.fuhriman.org
+      paths:
+        - path: /
+          pathType: Prefix
   tls:
     - secretName: fuhriman-tls
       hosts:
         - fuhriman.org
+        - www.fuhriman.org
 resources:
   limits:
     cpu: 100m

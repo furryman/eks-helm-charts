@@ -1,6 +1,18 @@
-# EKS Helm Charts
+# Kubernetes Helm Charts
 
-This repository contains Helm charts for the fuhriman.org Kubernetes infrastructure.
+This repository contains Helm charts for the fuhriman.org Kubernetes infrastructure, currently deployed to a k3s cluster on AWS EC2.
+
+> **Note:** This repository was originally created for AWS EKS but now serves a k3s deployment. The charts are platform-agnostic and work on any Kubernetes cluster.
+
+## Current Deployment
+
+These charts are deployed to a lightweight k3s Kubernetes cluster running on a single AWS EC2 t3.micro instance. ArgoCD manages continuous deployment using the app-of-apps pattern defined in [argocd-app-of-apps](https://github.com/furryman/argocd-app-of-apps).
+
+**Infrastructure:**
+- **Cluster:** Single-node k3s on Amazon Linux 2023
+- **Instance:** t3.micro (free tier eligible)
+- **GitOps:** ArgoCD with auto-sync, prune, and self-heal
+- **Deployment:** Terraform-managed (see [terraform repository](https://github.com/furryman/terraform))
 
 ## Charts
 

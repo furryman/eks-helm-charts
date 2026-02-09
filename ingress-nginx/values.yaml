@@ -2,9 +2,6 @@ ingress-nginx:
   controller:
     service:
       type: LoadBalancer
-      annotations:
-        service.beta.kubernetes.io/aws-load-balancer-type: nlb
-        service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
     ingressClassResource:
       default: true
     metrics:
