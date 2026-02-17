@@ -1,7 +1,7 @@
 replicaCount: 1
 image:
   repository: furryman/fuhriman-website
-  tag: ga-2026.02.16-2336
+  tag: ga-2026.02.17-2349
   pullPolicy: Always
 service:
   type: ClusterIP
