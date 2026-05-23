@@ -1,12 +1,11 @@
 replicaCount: 1
 image:
   repository: furryman/fuhriman-website
-  tag: ga-2026.05.23-0155
+  tag: ga-2026.05.23-0643
   pullPolicy: Always
 service:
   type: ClusterIP
   port: 80
-
 # Phase 4 PR-B: routing migrated from Ingress (ingress-nginx) to Gateway API
 # (Envoy Gateway). The shared "public" Gateway in envoy-gateway-system holds
 # the cert annotations + the external-dns target override — this chart just
@@ -19,7 +18,6 @@ routing:
   gateway:
     name: public
     namespace: envoy-gateway-system
-
 resources:
   limits:
     cpu: 100m
