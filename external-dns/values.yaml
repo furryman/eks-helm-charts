@@ -1,0 +1,41 @@
+external-dns:
+  provider:
+    name: aws
+  env:
+    - name: AWS_DEFAULT_REGION
+      value: us-west-2
+
+  # Use ambient EC2 instance-role credentials (IAM policy attached in the
+  # terraform repo, root main.tf). No serviceAccount.annotations needed.
+
+  policy: upsert-only # safe transitional mode — never deletes records.
+  # Switch to `sync` after Phase 3 verification confirms ExternalDNS owns
+  # the records we expect.
+
+  registry: txt
+  txtOwnerId: fuhriman-portfolio
+  txtPrefix: _externaldns.
+
+  domainFilters:
+    - fuhriman.org
+
+  # Sources of truth ExternalDNS watches. Phase 4 will add gateway-httproute
+  # when routing migrates from Ingress to Gateway API.
+  sources:
+    - ingress
+
+  # Resource hints — ExternalDNS is light.
+  resources:
+    requests:
+      cpu: 10m
+      memory: 32Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi
+
+  # Don't ship Prometheus annotations (no Prometheus deployed).
+  metrics:
+    enabled: false
+
+  # Trigger a sync every 1 minute (default is 1 minute; explicit for clarity).
+  interval: 1m

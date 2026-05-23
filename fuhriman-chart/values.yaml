@@ -11,6 +11,10 @@ ingress:
   className: nginx
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
+    # ExternalDNS publishes these hostnames to Route53. Hostnames here are
+    # redundant with the `hosts[].host` field below (ExternalDNS reads both)
+    # but the explicit annotation makes the intent obvious.
+    external-dns.alpha.kubernetes.io/hostname: fuhriman.org,www.fuhriman.org
   hosts:
     - host: fuhriman.org
       paths:

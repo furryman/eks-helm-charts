@@ -1,0 +1,10 @@
+apiVersion: v2
+name: external-dns
+description: ExternalDNS — populates Route53 from Kubernetes Ingress (and Gateway API in Phase 4+) annotations
+type: application
+version: 1.0.0
+appVersion: "0.15.0"
+dependencies:
+  - name: external-dns
+    version: "1.15.0"
+    repository: "https://kubernetes-sigs.github.io/external-dns"
