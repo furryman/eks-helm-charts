@@ -15,11 +15,10 @@ ingress:
     # redundant with the `hosts[].host` field below (ExternalDNS reads both)
     # but the explicit annotation makes the intent obvious.
     external-dns.alpha.kubernetes.io/hostname: fuhriman.org,www.fuhriman.org
-    # Override the target — klipper-lb on k3s reports the node's private IP in
-    # the Ingress LB status, which would publish bogus records. This forces
-    # ExternalDNS to use the instance's public IP. Bump this value when an EIP
-    # is attached (Phase 3.5 / before NS cutover).
-    external-dns.alpha.kubernetes.io/target: "35.86.95.174"
+    # Target = Elastic IP (allocated in Phase 3.5). Stable across instance
+    # stop/start and replacement. Klipper-lb's reported node-internal IP is
+    # overridden by this value.
+    external-dns.alpha.kubernetes.io/target: "52.37.95.130"
   hosts:
     - host: fuhriman.org
       paths:
