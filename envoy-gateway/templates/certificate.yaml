@@ -16,3 +16,4 @@ spec:
   dnsNames:
     - fuhriman.org
     - www.fuhriman.org
+    - argocd.fuhriman.org
