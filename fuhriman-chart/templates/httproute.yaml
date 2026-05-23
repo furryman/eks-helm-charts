@@ -1,0 +1,25 @@
+{{- if .Values.routing.enabled }}
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: {{ include "fuhriman-chart.fullname" . }}
+  labels:
+    {{- include "fuhriman-chart.labels" . | nindent 4 }}
+spec:
+  parentRefs:
+    - name: {{ .Values.routing.gateway.name }}
+      namespace: {{ .Values.routing.gateway.namespace }}
+      sectionName: https
+  hostnames:
+    {{- range .Values.routing.hostnames }}
+    - {{ . | quote }}
+    {{- end }}
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: {{ include "fuhriman-chart.fullname" . }}
+          port: {{ .Values.service.port }}
+{{- end }}

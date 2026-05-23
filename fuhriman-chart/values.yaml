@@ -6,33 +6,20 @@ image:
 service:
   type: ClusterIP
   port: 80
-ingress:
+
+# Phase 4 PR-B: routing migrated from Ingress (ingress-nginx) to Gateway API
+# (Envoy Gateway). The shared "public" Gateway in envoy-gateway-system holds
+# the cert annotations + the external-dns target override — this chart just
+# declares hostnames and the HTTPRoute attaches to the Gateway.
+routing:
   enabled: true
-  className: nginx
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    # ExternalDNS publishes these hostnames to Route53. Hostnames here are
-    # redundant with the `hosts[].host` field below (ExternalDNS reads both)
-    # but the explicit annotation makes the intent obvious.
-    external-dns.alpha.kubernetes.io/hostname: fuhriman.org,www.fuhriman.org
-    # Target = Elastic IP (allocated in Phase 3.5). Stable across instance
-    # stop/start and replacement. Klipper-lb's reported node-internal IP is
-    # overridden by this value.
-    external-dns.alpha.kubernetes.io/target: "52.37.95.130"
-  hosts:
-    - host: fuhriman.org
-      paths:
-        - path: /
-          pathType: Prefix
-    - host: www.fuhriman.org
-      paths:
-        - path: /
-          pathType: Prefix
-  tls:
-    - secretName: fuhriman-tls
-      hosts:
-        - fuhriman.org
-        - www.fuhriman.org
+  hostnames:
+    - fuhriman.org
+    - www.fuhriman.org
+  gateway:
+    name: public
+    namespace: envoy-gateway-system
+
 resources:
   limits:
     cpu: 100m

@@ -1,0 +1,18 @@
+# Certificate for the shared "public" Gateway. cert-manager issues this from
+# letsencrypt-prod (HTTP-01 via gatewayHTTPRoute solver) into a Secret in
+# envoy-gateway-system, which the Gateway's HTTPS listener references.
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: fuhriman-tls
+  namespace: envoy-gateway-system
+spec:
+  secretName: fuhriman-tls
+  duration: 2160h0m0s # 90 days
+  renewBefore: 720h0m0s # 30 days
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+    - fuhriman.org
+    - www.fuhriman.org

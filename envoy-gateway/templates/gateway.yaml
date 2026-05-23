@@ -1,0 +1,31 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: public
+  namespace: envoy-gateway-system
+  annotations:
+    # ExternalDNS publishes these names to Route53. Target is the EIP because
+    # klipper-lb advertises the node's private IP in the data plane Service's
+    # LB status — same override pattern as the previous Ingress carried.
+    external-dns.alpha.kubernetes.io/target: "52.37.95.130"
+    external-dns.alpha.kubernetes.io/hostname: "fuhriman.org,www.fuhriman.org"
+spec:
+  gatewayClassName: envoy
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+      allowedRoutes:
+        namespaces:
+          from: All
+    - name: https
+      protocol: HTTPS
+      port: 443
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: fuhriman-tls
+      allowedRoutes:
+        namespaces:
+          from: All

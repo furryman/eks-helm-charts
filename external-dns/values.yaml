@@ -19,10 +19,10 @@ external-dns:
   domainFilters:
     - fuhriman.org
 
-  # Sources of truth ExternalDNS watches. Phase 4 will add gateway-httproute
-  # when routing migrates from Ingress to Gateway API.
+  # Sources of truth ExternalDNS watches. Phase 4 PR-B migrated routing to
+  # Gateway API; gateway-httproute is now the canonical source.
   sources:
-    - ingress
+    - gateway-httproute
 
   # Resource hints — ExternalDNS is light.
   resources:
