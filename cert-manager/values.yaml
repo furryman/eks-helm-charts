@@ -1,10 +1,10 @@
 cert-manager:
-  installCRDs: true
+  crds:
+    enabled: true
   prometheus:
     enabled: false
-  # cert-manager 1.14 ships Gateway API support behind a feature gate. 1.15+
-  # makes it stable; once we bump the chart in Phase 5+, this can be removed.
-  featureGates: "ExperimentalGatewayAPISupport=true"
+  # ExperimentalGatewayAPISupport feature gate removed: it is BETA with
+  # default=true in v1.20.2 and requires no explicit opt-in.
 
 # Let's Encrypt configuration
 letsencrypt:
