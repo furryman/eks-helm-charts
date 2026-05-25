@@ -3,8 +3,12 @@ cert-manager:
     enabled: true
   prometheus:
     enabled: false
-  # ExperimentalGatewayAPISupport feature gate removed: it is BETA with
-  # default=true in v1.20.2 and requires no explicit opt-in.
+  # Gateway API support graduated from feature gate to controller flag
+  # in cert-manager 1.16+. Required for the ClusterIssuer's
+  # gatewayHTTPRoute solver; without it cert-manager logs
+  # "gateway api is not enabled" and challenges sit pending forever.
+  extraArgs:
+    - --enable-gateway-api
 
 # Let's Encrypt configuration
 letsencrypt:
